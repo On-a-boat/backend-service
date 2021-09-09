@@ -1,15 +1,8 @@
-# Breakout Room 3 - Project (Frontend)
-
-recommend to install plugins:
-- prettier
-- vscode-styled-components
-- material icon theme
-
-# Breakout Room 3 - Project (Backend)
+# Team 90 - On-a-boat - Project (Backend)
 
 ## Table of Contents
 
-- [Breakout Room 3 - Project](#breakout-room-3---project)
+- [Team 90 - On-a-boat - Project](#on-a-boat---project)
   - [Running this project locally](#running-this-project-locally)
   - [MongoDB Access details](#mongodb-access-details)
   - [Postman Routes](#postman-routes)
@@ -30,7 +23,7 @@ but the controller for manipulating the data is implemented and the description 
 ## Running this Project Locally
 
 - **Clone this repo:**  
-  `git clone https://github.com/INFO30005-2021-SM1/project-t05-breakout-room-3.git`
+  `git clone https://github.com/INFO30005-2021-SM1/project-t05-on-a-boat.git`
 
 - **Install Dependencies:**  
   `npm install`
@@ -108,9 +101,10 @@ but the controller for manipulating the data is implemented and the description 
        "status": "fulfilled"
    }
    ```
-## Front End 
-   
-   Dummy Customer login:
-   
-   email address: john@gmail.com
-   password: 123456
+
+## Front End
+
+Dummy Customer login:
+
+email address: john@gmail.com
+password: 123456
