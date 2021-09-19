@@ -35,9 +35,9 @@ but the controller for manipulating the data is implemented and the description 
 
 | Field    | Details                                                                                     |
 | -------- | ------------------------------------------------------------------------------------------- |
-| URL      | mongodb+srv://admin:admin@br3.jdd2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority |
+| URL      | on-a-boat.cluster-czjflueg9kom.ap-southeast-2.rds.amazonaws.com |
 | Username | admin                                                                                       |
-| Password | admin                                                                                       |
+| Password | on-a-boat                                                                                       |
 
 ## Postman Routes
 
