@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json(), cors());
 
 const con = mysql.createConnection({
-  host: "on-a-boat.cluster-czjflueg9kom.ap-southeast-2.rds.amazonaws.com",
+  host: "on-a-boat-weey-instance-1.czjflueg9kom.ap-southeast-2.rds.amazonaws.com",
   user: "admin",
   password: "on-a-boat",
 });
