@@ -31,80 +31,30 @@ but the controller for manipulating the data is implemented and the description 
 - **Start the project:**  
   `npm start`
 
-## MongoDB Access details
+## MySQL Access details
 
-| Field    | Details                                                                                     |
-| -------- | ------------------------------------------------------------------------------------------- |
-| URL      | mongodb+srv://admin:admin@br3.jdd2m.mongodb.net/myFirstDatabase?retryWrites=true&w=majority |
-| Username | admin                                                                                       |
-| Password | admin                                                                                       |
+| Field    | Details                                                         |
+| -------- | --------------------------------------------------------------- |
+| URL      | on-a-boat.cluster-czjflueg9kom.ap-southeast-2.rds.amazonaws.com |
+| Username | admin                                                           |
+| Password | on-a-boat                                                       |
 
-## Postman Routes
+# Code Overview
 
-1. **Get menu list**
+## Dependencies
 
-   Under Menu/Get menu
+- [body-parser](https://github.com/expressjs/body-parser) - For a middleware parsing body for POST request
+- [cors](https://github.com/expressjs/cors) - Middleware that connects to Frontend service
+- [expressjs](https://github.com/expressjs/express) - The server for handling and routing HTTP requests
+- [express-jwt](https://github.com/auth0/express-jwt) - Middleware for validating JWTs for authentication
+- [mysql](https://github.com/auth0/express-jwt) - Connects to DB for data handling
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - For generating JWTs used by authentication
+- [passport](https://github.com/jaredhanson/passport) - For handling user authentication
+- [slug](https://github.com/dodo/node-slug) - For encoding titles into a URL-friendly format
 
-   - GET route recieves menu as JSON file displaying every item in menu with their name, price, image url and detail description
+## Application Structure
 
-2. **View menu detail**
-
-   Under Menu/Get menu item
-
-   - GET specific menu item by adding item's name in route
-   - e.g /menu/latte, which will display item's name, price, image url and detail description
-
-3. **Customer adds new order by requesting a snack**
-
-   Under Customer/Start new order
-
-   - Example JSON in body:
-
-   ```javascript
-    {
-        "CustomerId": ObjectId
-        "VendorId": ObjectId
-        "foodItems": {
-        "latte": 2,
-        "cappuccino": 1 },
-    }
-   ```
-
-4. **Setting van status:**
-
-   Under Vendor/Set van status
-
-   - PUT route sends a json in the body
-   - Example JSON in body:
-
-   ```javascript
-   {
-       "location": "outside Flinders Station",
-       "status":"open"
-   }
-   ```
-
-5. **Show list of all outstanding orders:**
-
-   Under Order/Get all outstanding orders
-
-   - All orders with "status" that is not "fulfilled" will be displayed
-
-6. **Mark an order as "fulfilled":**
-
-   Under Order/Update order
-
-   - The new order made has status set as "pending" by default. We take an order id param from the request, then update the status of the identified order. The status update request body contains:
-
-   ```javascript
-   {
-       "status": "fulfilled"
-   }
-   ```
-
-## Front End
-
-Dummy Customer login:
-
-email address: john@gmail.com
-password: 123456
+- `server.js` - The entry point to our application. This file defines our express server and connects it to MongoDB using mongoose. It also requires the routes and models we'll be using in the application.
+- `config/` - This folder contains configuration for passport as well as a central location for configuration/environment variables.
+- `routes/` - This folder contains the route definitions for our API.
+- `models/` - This folder contains the schema definitions for our Mongoose models.
