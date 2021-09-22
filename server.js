@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json(), cors());
 
 const con = mysql.createConnection({
-  host: "on-a-boat-weey-instance-1.czjflueg9kom.ap-southeast-2.rds.amazonaws.com",
+  host: "mysql-db-team-90.czjflueg9kom.ap-southeast-2.rds.amazonaws.com",
   user: "admin",
   password: "on-a-boat",
   database: "Newhope",
@@ -25,7 +25,7 @@ con.connect(function (err) {
 // app.use("/statistics", require("./routes/statistics"));
 app.get('/users', (req, res) => {
   con.connect(function(err) {
-      con.query(`SELECT * FROM user;`, function(err, result, fields) {
+      con.query(`SELECT * FROM User;`, function(err, result, fields) {
         if (err) res.send(err);
         if (result) res.send(result);
       });
