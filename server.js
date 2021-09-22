@@ -44,6 +44,6 @@ app.listen(port, () => {
 
 // The first page maybe the login page, but I haven't study react so... for now just keep it
 
-// app.get("*", (req, res) => {
-//   res.send("<h1>helloo guys</h1>");
-// });
+ app.get("*", (req, res) => {
+   res.send("<h1>helloo guys</h1>");
+ });
