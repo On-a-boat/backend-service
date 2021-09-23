@@ -14,24 +14,23 @@ const con = mysql.createConnection({
   database: "Newhope",
 });
 
-con.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-  con.end();
-});
+// con.connect(function (err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+//   con.end();
+// });
 
 // App routes
 // app.use("/filter", require("./routes/filter"));
 // app.use("/statistics", require("./routes/statistics"));
-app.get('/users', (req, res) => {
-  con.connect(function(err) {
-      con.query(`SELECT * FROM User;`, function(err, result, fields) {
-        if (err) res.send(err);
-        if (result) res.send(result);
-      });
-  }); 
+app.get("/users", (req, res) => {
+  con.connect(function (err) {
+    con.query(`SELECT * FROM User;`, function (err, result, fields) {
+      if (err) res.send(err);
+      if (result) res.send(result);
+    });
+  });
 });
-
 
 app.listen(port, () => {
   console.log(`The app is listening on port ${port}`);
