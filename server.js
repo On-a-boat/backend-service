@@ -40,8 +40,28 @@ app.get("/users/:userid", (req, res) => {
 });
 
 /*
-app.get("/:lowage/:highage/:", (req.res))
+app.get("/:lowage/:highage/:gender/:keywords", (req,res) => {
+  if (req.params.lowage){
+    const low = req.params.lowage;
+  } const low = 0;
+  if (req.params.lowage){
+    const high = req.params.highage;
+  } const high = 200;
 
+  const gender = req.params.gender;
+  const keywords = '%' + req.params.keywords + '%';
+
+  const queryString = "SELECT * FROM User WHERE Age BETWEEN ? AND ? AND Gender is ? AND keywords LIKE ?"
+
+  con.connect(function (err) {
+    con.query(queryString, [low, high, gender, keywords], function (err, result, fields) {
+      if (err) res.send(err);
+      if (result) res.send(result);
+    });
+  });
+
+})
+*/
 
 app.post("/filters", (req,res) => {
   const 
