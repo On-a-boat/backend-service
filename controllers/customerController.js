@@ -1,3 +1,5 @@
+// this is used as a sample controller for coding style
+// will be removed once one of the controller finish
 const Customer = require("../models/customer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
