@@ -15,22 +15,14 @@ const con = mysql.createConnection({
   database: "Newhope",
 });
 
-// NOT USING
-// con.connect(function (err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-//   con.end();
-// });
-
 // App routes
 // app.use("/filter", require("./routes/filter"));
 // app.use("/statistics", require("./routes/statistics"));
 
-// get the information of the a user by userid 
-// for testing, userid is been changed to age 
+// Get the information of the a user by userid 
 app.get("/users/:userid", (req, res) => {
   const id = req.params.userid;
-  const queryString = "SELECT * FROM User WHERE Age = ?"
+  const queryString = "SELECT * FROM User WHERE Id = ?"
   con.connect(function (err) {
     con.query(queryString, [id], function (err, result, fields) {
       if (err) res.send(err);
@@ -39,7 +31,8 @@ app.get("/users/:userid", (req, res) => {
   });
 });
 
-/*
+
+// Filtering a list of user by age, gender and keywords, send all the information 
 app.get("/:lowage/:highage/:gender/:keywords", (req,res) => {
   if (req.params.lowage){
     const low = req.params.lowage;
@@ -51,7 +44,7 @@ app.get("/:lowage/:highage/:gender/:keywords", (req,res) => {
   const gender = req.params.gender;
   const keywords = '%' + req.params.keywords + '%';
 
-  const queryString = "SELECT * FROM User WHERE Age BETWEEN ? AND ? AND Gender is ? AND keywords LIKE ?"
+  const queryString = "SELECT * FROM User WHERE Age BETWEEN ? AND ? AND Gender = ? AND Keywords LIKE ?"
 
   con.connect(function (err) {
     con.query(queryString, [low, high, gender, keywords], function (err, result, fields) {
@@ -61,8 +54,9 @@ app.get("/:lowage/:highage/:gender/:keywords", (req,res) => {
   });
 
 })
-*/
 
+
+/*
 app.post("/filters", (req,res) => {
   const 
   con.connect(function (err) {
