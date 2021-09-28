@@ -7,7 +7,7 @@ const app = express();
 // Use express' inbuilt body parser
 app.use(express.json(), cors());
 
-// connect to mysql database 
+// Connect to mysql database 
 const con = mysql.createConnection({
   host: "mysql-db-team-90.czjflueg9kom.ap-southeast-2.rds.amazonaws.com",
   user: "admin",
@@ -34,14 +34,14 @@ app.get("/users/:userid", (req, res) => {
 
 // Filtering a list of user by age, gender and keywords, send all the information 
 app.get("/:lowage/:highage/:gender/:keywords", (req,res) => {
-  if (req.params.lowage){
-    const low = req.params.lowage;
-  } const low = 0;
-  if (req.params.lowage){
-    const high = req.params.highage;
-  } const high = 200;
-
-  const gender = req.params.gender;
+  // Age may need to have a default value
+  const low = req.params.lowage;
+  const high = req.params.highage;
+  var gender = req.params.gender;
+  // If admin select 'All', not complete yet
+  if (gender == "2"){
+    gender = "0 AND 1"
+  }
   const keywords = '%' + req.params.keywords + '%';
 
   const queryString = "SELECT * FROM User WHERE Age BETWEEN ? AND ? AND Gender = ? AND Keywords LIKE ?"
