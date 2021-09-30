@@ -1,3 +1,7 @@
+// This file contains everything for the current backend
+// Routes and controller are not been seperate for better debuging 
+// The contains of the server.js will be moved to the sub folder at next sprint
+
 const express = require("express");
 const mysql = require("mysql");
 const port = process.env.PORT || 5000;
@@ -15,7 +19,8 @@ const con = mysql.createConnection({
   database: "Newhope",
 });
 
-// App routes
+// App routes 
+// not use for now, will seprete the route/controller later 
 // app.use("/filter", require("./routes/filter"));
 // app.use("/statistics", require("./routes/statistics"));
 
@@ -33,21 +38,26 @@ app.get("/users/:userid", (req, res) => {
 
 
 // Filtering a list of user by age, gender and keywords, send all the information 
-app.get("/:lowage/:highage/:gender/:keywords", (req,res) => {
+app.get("/filter/:lowage/:highage/:gender/:keywords", (req,res) => {
   // Age may need to have a default value
   const low = req.params.lowage;
   const high = req.params.highage;
-  var gender = req.params.gender;
-  // If admin select 'All', not complete yet
-  if (gender == "2"){
-    gender = "0 AND 1"
-  }
-  const keywords = '%' + req.params.keywords + '%';
+  //const keywords = '%' + req.params.keywords + '%';
+  const ageString = " Age BETWEEN " + low + " AND " + high;
 
-  const queryString = "SELECT * FROM User WHERE Age BETWEEN ? AND ? AND Gender = ? AND Keywords LIKE ?"
+  var keywordString = "";
+  var genderString = "";
+  if (req.params.gender != "2"){
+    genderString = " AND Gender = " + gender;
+  }
+  if (req.params.keywords != "none"){
+    keywordString = " AND Keywords LIKE '" + "%" + req.params.keywords + "%'";
+  }
+
+  const queryString = "SELECT * FROM User WHERE" +  ageString + genderString + keywordString;
 
   con.connect(function (err) {
-    con.query(queryString, [low, high, gender, keywords], function (err, result, fields) {
+    con.query(queryString, function (err, result, fields) {
       if (err) res.send(err);
       if (result) res.send(result);
     });
@@ -56,7 +66,7 @@ app.get("/:lowage/:highage/:gender/:keywords", (req,res) => {
 })
 
 
-/*
+/* uncompleted route
 app.post("/filters", (req,res) => {
   const 
   con.connect(function (err) {
