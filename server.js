@@ -1,5 +1,5 @@
 // This file contains everything for the current backend
-// Routes and controller are not been seperate for better debuging 
+// Routes and controller are not been seperate for impleting the basic functions 
 // The contains of the server.js will be moved to the sub folder at next sprint
 
 const express = require("express");
@@ -25,8 +25,8 @@ const con = mysql.createConnection({
 // app.use("/statistics", require("./routes/statistics"));
 
 // Get the information of the a user by userid 
-app.get("/users/:userid", (req, res) => {
-  const id = req.params.userid;
+app.get("/users", (req, res) => {
+  const id = req.query.userid;
   const queryString = "SELECT * FROM User WHERE Id = ?"
   con.connect(function (err) {
     con.query(queryString, [id], function (err, result, fields) {
@@ -38,20 +38,20 @@ app.get("/users/:userid", (req, res) => {
 
 
 // Filtering a list of user by age, gender and keywords, send all the information 
-app.get("/filter/:lowage/:highage/:gender/:keywords", (req,res) => {
+app.get("/filter", (req,res) => {
   // Age may need to have a default value
-  const low = req.params.lowage;
-  const high = req.params.highage;
-  //const keywords = '%' + req.params.keywords + '%';
+  const low = req.query.low;
+  const high = req.query.high;
   const ageString = " Age BETWEEN " + low + " AND " + high;
 
+  // default value for key and gender in queryString
   var keywordString = "";
   var genderString = "";
-  if (req.params.gender != "2"){
-    genderString = " AND Gender = " + gender;
+  if (req.query.gender){
+    genderString = " AND Gender = " + req.query.gender;
   }
-  if (req.params.keywords != "none"){
-    keywordString = " AND Keywords LIKE '" + "%" + req.params.keywords + "%'";
+  if (req.query.keywords){
+    keywordString = " AND Keywords LIKE '" + "%" + req.query.keywords + "%'";
   }
 
   const queryString = "SELECT * FROM User WHERE" +  ageString + genderString + keywordString;
@@ -80,14 +80,7 @@ app.listen(port, () => {
 });
 
 
-
-// // The first page maybe the login page, but I haven't study react so... for now just keep it
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname + "/client/build/login.html"));
-// });
-
-// The first page maybe the login page, but I haven't study react so... for now just keep it
-
+// default page
  app.get("*", (req, res) => {
    res.send("<h1>helloo guys</h1>");
  });
