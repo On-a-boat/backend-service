@@ -50,8 +50,12 @@ app.get("/filter", (req,res) => {
   if (req.query.gender){
     genderString = " AND Gender = " + req.query.gender;
   }
+
   if (req.query.keywords){
-    keywordString = " AND Keywords LIKE '" + "%" + req.query.keywords + "%'";
+    const array = req.query.keywords.split(',');
+    for (i = 0; i < array.length; i++){
+      keywordString += " AND Keywords LIKE '" + "%" + array[i] + "%'";
+    } 
   }
 
   const queryString = "SELECT * FROM User WHERE" +  ageString + genderString + keywordString;
