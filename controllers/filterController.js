@@ -4,6 +4,7 @@ const con = require("../middleware/db")
 const findAll = async (req, res) => {
     const queryString = "SELECT * FROM User"
     con.query(queryString, function (err, result, fields) {
+
         if (err) res.send(err);
         if (result) res.json(result);
       });
