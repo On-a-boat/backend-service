@@ -29,13 +29,16 @@ const getGroup = async (req, res) => {
 
 }
 
-/*const getGroup = async (req, res) => {
-  const queryString = "INSERT INTO Group () VALUES (?, ?, ?, ?, ?)";
-  con.query(queryString, [],function (err, result, fields) {
+// Create a group base on name, userid list and keywords.
+const createGroup = async (req, res) => {
+  const {name, keywords, users} = req.body;
+  const date = new Date();
+  const queryString = "INSERT INTO MyGroups (Date,GroupName,GroupDescription,Users) VALUES (?, ?, ?, ?)";
+  con.query(queryString, [date, name, keywords, users],function (err, result, fields) {
     if (err) res.send(err);
-    if (result) res.json(result);
+    if (result) res.send("sucess!");
   });
 
-}*/
+}
 
-module.exports = {getAllGroup, getGroup};
+module.exports = {getAllGroup, getGroup, createGroup};
