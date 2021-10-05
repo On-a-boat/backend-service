@@ -13,7 +13,9 @@ app.use(express.json(), cors());
 // App routes 
 // not use for now, will seprete the route/controller later 
 app.use("/filter", require("./routes/filter"));
-// app.use("/statistics", require("./routes/statistics"));
+app.use("/group", require("./routes/group"));
+app.use("/email", require("./routes/email"));
+
 
 app.listen(port, () => {
   console.log(`The app is listening on port ${port}`);
