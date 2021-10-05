@@ -1,6 +1,15 @@
 const con = require("../middleware/db")
 
+// Get all group's information
+const getAllGroup = async (req, res) => {
+  const queryString = "SELECT * FROM Newhope.Group"
+  con.query(queryString, function (err, result, fields) {
+    if (err) res.send(err);
+    if (result) res.json(result);
+  });
 
+
+}
 // Get all information from users from a group by groupId 
 const getGroup = async (req, res) => {
     const id = req.query.groupId;
@@ -20,4 +29,13 @@ const getGroup = async (req, res) => {
 
 }
 
-module.exports = {getGroup};
+/*const getGroup = async (req, res) => {
+  const queryString = "INSERT INTO Group () VALUES (?, ?, ?, ?, ?)";
+  con.query(queryString, [],function (err, result, fields) {
+    if (err) res.send(err);
+    if (result) res.json(result);
+  });
+
+}*/
+
+module.exports = {getAllGroup, getGroup};
