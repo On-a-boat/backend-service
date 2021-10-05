@@ -10,9 +10,7 @@ const getGroup = async (req, res) => {
     con.query(queryString, [id], function (err, result, fields) {
         if (err) res.send(err);
         if (result) {
-            console.log(result[0].Users);
             userList = "(" + result[0].Users + ")";
-            console.log(userList);
             con.query(queryString2 + userList, function (err, data, fields) {
                 if (err) res.send(err);
                 if (data) res.send(data);
