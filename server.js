@@ -14,6 +14,7 @@ app.use(express.json(), cors());
 // not use for now, will seprete the route/controller later 
 app.use("/filter", require("./routes/filter"));
 app.use("/group", require("./routes/group"));
+app.use("/email", require("./routes/email"));
 
 
 app.listen(port, () => {

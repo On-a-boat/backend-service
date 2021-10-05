@@ -1,4 +1,4 @@
-const con = require("../middleware/db")
+const con = require("../middleware/db");
 
 // Get all the user information
 const findAll = async (req, res) => {
