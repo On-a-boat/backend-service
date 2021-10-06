@@ -16,6 +16,9 @@ app.use("/filter", require("./routes/filter"));
 app.use("/group", require("./routes/group"));
 app.use("/email", require("./routes/email"));
 
+app.get('*', cors('local'), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a Single Route'})
+})
 
 app.listen(port, () => {
   console.log(`The app is listening on port ${port}`);
@@ -23,6 +26,6 @@ app.listen(port, () => {
 
 
 // default page
- app.get("*", (req, res) => {
-   res.send("<h1>helloo guys</h1>");
- });
+  app.get("*", (req, res) => {
+  res.send("<h1>helloo guys</h1>");
+});
