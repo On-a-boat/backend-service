@@ -1,9 +1,18 @@
 const con = require("../middleware/db");
 
+const showAll = async (req, res) => {
+  const queryString = "SELECT firstName,lastName,age,gender,freq,email FROM newUser";
+  con.query(queryString, function (err, result, fields) {
+    if (err) res.send(err);
+    if (result) res.json(result);
+  });
+
+}
+
 // Get all the user information
 const findAll = async (req, res) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
-  const queryString = "SELECT * FROM User"
+  const queryString = "SELECT * FROM newUser"
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -14,7 +23,7 @@ const findAll = async (req, res) => {
 const findUser = async (req, res) => {
   res.set('Access-Control-Allow-Origin', 'http://localhost:3000');
   const id = req.query.userId;
-  const queryString = "SELECT * FROM User WHERE UserId = ?"
+  const queryString = "SELECT * FROM newUser WHERE UserId = ?"
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -43,4 +52,4 @@ const findUserByKeyword = async (req, res) => {
   
 };
   
-module.exports = {findAll, findUser, findUserByKeyword};
+module.exports = {showAll, findAll, findUser, findUserByKeyword};
