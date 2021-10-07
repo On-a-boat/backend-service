@@ -3,7 +3,7 @@ const con = require("../middleware/db");
 const showAll = async (req, res) => {
   res.set("Access-Control-Allow-Origin", "http://localhost:3000");
   const queryString =
-    "SELECT UserId, firstName,lastName,age,gender,freq,email FROM newUser";
+    "SELECT UserId, firstName,lastName,age,gender,freq,email,Link FROM newUser";
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
