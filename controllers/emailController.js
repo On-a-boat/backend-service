@@ -5,7 +5,6 @@ const mail = require("../middleware/mail")
 const findAll = async (req, res) => {
     const queryString = "SELECT * FROM Email"
     con.query(queryString, function (err, result, fields) {
-
         if (err) res.send(err);
         if (result) res.json(result);
       });
@@ -33,7 +32,6 @@ const sendEmail = async (req, res) => {
             if (err) res.send(err);
             if (result) res.json(result);
           });
-
         }
       })
 

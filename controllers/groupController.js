@@ -22,7 +22,7 @@ const getGroup = async (req, res) => {
             userList = "(" + result[0].Users + ")";
             con.query(queryString2 + userList, function (err, data, fields) {
                 if (err) res.send(err);
-                if (data) res.send(data);
+                if (data) res.json(data);
               });
         }
       });
@@ -31,10 +31,9 @@ const getGroup = async (req, res) => {
 
 // Create a group base on name, userid list and keywords.
 const createGroup = async (req, res) => {
-  const {name, keywords, users} = req.body;
-  const date = new Date();
-  const queryString = "INSERT INTO MyGroups (Date,GroupName,GroupDescription,Users) VALUES (?, ?, ?, ?)";
-  con.query(queryString, [date, name, keywords, users],function (err, result, fields) {
+  const {groupName, users, userCount, dateCreated} = req.body;
+  const queryString = "INSERT INTO MyGroups (Date,GroupNameUsers) VALUES (?, ?, ?, ?)";
+  con.query(queryString, [groupName, users, userCount, dateCreated],function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.send("sucess!");
   });
