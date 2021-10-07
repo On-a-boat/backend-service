@@ -2,7 +2,7 @@ const con = require("../middleware/db")
 
 // Get all group's information
 const getAllGroup = async (req, res) => {
-  const queryString = "SELECT * FROM Newhope.Group"
+  const queryString = "SELECT * FROM Newhope.MyGroups"
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -14,7 +14,7 @@ const getAllGroup = async (req, res) => {
 const getGroup = async (req, res) => {
     const id = req.query.groupId;
     var userList = [];
-    const queryString = "SELECT Users FROM Newhope.Group WHERE GroupId = ?"
+    const queryString = "SELECT Users FROM Newhope.MyGroups WHERE GroupId = ?"
     const queryString2 = "SELECT * FROM User WHERE UserId in "
     con.query(queryString, [id], function (err, result, fields) {
         if (err) res.send(err);
