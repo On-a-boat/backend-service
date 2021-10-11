@@ -11,4 +11,7 @@ router.get("/allUser",statistics.countAllUser);
 // count Gender
 router.get("/allGender", statistics.allGender);
 
+// Get allAge
+router.get("/allAge", statistics.allAge);
+
 module.exports = router;
