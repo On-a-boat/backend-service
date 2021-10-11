@@ -3,7 +3,7 @@ const statistics = require("../controllers/statisticController");
 const router = express.Router();
 
 // Get all openEmail
-router.get("/allopen", statistics.allOpenEmail);
+router.get("/allOpen", statistics.allOpenEmail);
 
 // count all user
 router.get("/allUser",statistics.countAllUser);
@@ -19,5 +19,8 @@ router.get("/email", statistics.findEmail);
 
 // find content for one Email
 router.get("/content", statistics.findContent);
+
+// find content for one Email
+router.get("/sent", statistics.findSent);
 
 module.exports = router;

@@ -41,7 +41,7 @@ const allAge = async (req, res) => {
 // Get the OpenedEmail from one email
 const findEmail = async (req, res) => {
   const id = req.query.emailId;
-  const queryString = "SELECT SUM(NumberOpened) FROM Email WHERE EmailId = ?";
+  const queryString = "SELECT NumberOpened FROM Email WHERE EmailId = ?";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -58,4 +58,13 @@ const findContent = async (req, res) => {
   });
 };
 
-module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent};
+// Get the number sent from one email
+const findSent = async (req, res) => {
+  const id = req.query.emailId;
+  const queryString = "SELECT NumberSent FROM Email WHERE EmailId = ?";
+  con.query(queryString, [id], function (err, result, fields) {
+    if (err) res.send(err);
+    if (result) res.json(result);
+  });
+};
+module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent, findSent};
