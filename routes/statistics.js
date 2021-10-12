@@ -26,4 +26,10 @@ router.get("/sent", statistics.findSent);
 // return NewUsers for today 
 router.get("/newUser", statistics.newUser);
 
+// count Gender for userId
+router.get("/userIdGender", statistics.findUserIdGender);
+
+// count Gender for userId
+router.get("/userIdAge", statistics.findUserIdAge);
+
 module.exports = router;

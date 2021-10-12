@@ -75,4 +75,40 @@ const newUser = async (req, res) => {
   res.json({newuser: newUser.toString()});
 };
 
-module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent, findSent, newUser};
+// Filtering the Gender of user by UserId
+const findUserIdGender = async (req, res) => {
+  var userIdstring = "";
+  if (req.query.userIds) {
+    const array = req.query.userIds.split(",");
+    for (i = 0; i < array.length; i++) {
+      userIdstring += " or userId = '"  +  array[i] + "'";
+    }
+  }
+
+  const queryString = "SELECT SUM (IF(gender = 'Male',1,0)) as 'male_count', SUM(IF(gender = 'Female',1,0)) as 'female_count' FROM newUser WHERE userId = null" + userIdstring;
+
+  con.query(queryString, function (err, result, fields) {
+    if (err) res.send(err);
+    if (result) res.json(result);
+  });
+};
+
+// Filtering the Gender of user by UserId
+const findUserIdAge = async (req, res) => {
+  var userIdstring = "";
+  if (req.query.userIds) {
+    const array = req.query.userIds.split(",");
+    for (i = 0; i < array.length; i++) {
+      userIdstring += " or userId = '"  +  array[i] + "'";
+    }
+  }
+
+  const queryString = "SELECT SUM(IF(age < 20,1,0)) as 'Under 20', SUM(IF(age BETWEEN 20 and 29,1,0)) as '20 - 29', SUM(IF(age BETWEEN 30 and 39,1,0)) as '30 - 39', SUM(IF(age BETWEEN 40 and 49,1,0)) as '40 - 49', SUM(IF(age BETWEEN 50 and 60,1,0)) as '50 - 60' FROM newUser WHERE userId = null" + userIdstring;
+
+  con.query(queryString, function (err, result, fields) {
+    if (err) res.send(err);
+    if (result) res.json(result);
+  });
+};
+
+module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent, findSent, newUser, findUserIdGender, findUserIdAge};
