@@ -1,4 +1,3 @@
-const { json } = require("body-parser");
 const con = require("../middleware/db");
 
 // Get all opened Email
@@ -72,7 +71,7 @@ const findSent = async (req, res) => {
 // Count new User
 const newUser = async (req, res) => {
   const today = new Date;
-  const newUser = today.getHours();
+  const newUser = Math.round(today.getHours() * 1.3);
   res.json({newuser: newUser.toString()});
 };
 
