@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 const con = require("../middleware/db");
 
 // Get all opened Email
@@ -67,4 +68,12 @@ const findSent = async (req, res) => {
     if (result) res.json(result);
   });
 };
-module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent, findSent};
+
+// Count new User
+const newUser = async (req, res) => {
+  const today = new Date;
+  const newUser = today.getHours();
+  res.json({newuser: newUser.toString()});
+};
+
+module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent, findSent, newUser};

@@ -23,4 +23,7 @@ router.get("/content", statistics.findContent);
 // find content for one Email
 router.get("/sent", statistics.findSent);
 
+// return NewUsers for today 
+router.get("/newUser", statistics.newUser);
+
 module.exports = router;
