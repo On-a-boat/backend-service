@@ -16,6 +16,7 @@ app.use("/filter", require("./routes/filter"));
 app.use("/group", require("./routes/group"));
 app.use("/email", require("./routes/email"));
 app.use("/admin", require("./routes/admin"));
+app.use("/statistics", require("./routes/statistics"));
 
 app.get("*", cors("local"), function (req, res, next) {
   res.json({ msg: "This is CORS-enabled for a Single Route" });

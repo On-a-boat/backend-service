@@ -1,6 +1,35 @@
 const express = require("express");
-const statisticsController = require("../controllers/statisticController");
+const statistics = require("../controllers/statisticController");
 const router = express.Router();
 
+// Get all openEmail
+router.get("/allOpen", statistics.allOpenEmail);
+
+// count all user
+router.get("/allUser",statistics.countAllUser);
+
+// count Gender
+router.get("/allGender", statistics.allGender);
+
+// Get allAge
+router.get("/allAge", statistics.allAge);
+
+// find opened Email for one Email
+router.get("/email", statistics.findEmail);
+
+// find content for one Email
+router.get("/content", statistics.findContent);
+
+// find content for one Email
+router.get("/sent", statistics.findSent);
+
+// return NewUsers for today 
+router.get("/newUser", statistics.newUser);
+
+// count Gender for email
+router.get("/emailGender", statistics.emailUserGender);
+
+// count Age for email
+router.get("/emailAge", statistics.emailUserAge);
 
 module.exports = router;

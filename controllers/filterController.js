@@ -42,8 +42,8 @@ const findUserByKeyword = async (req, res) => {
       keywordString += " AND Keywords LIKE '" + "%" + array[i] + "%'";
     }
   }
-
-  const queryString = "SELECT * FROM User WHERE Age < 999" + keywordString;
+  // is User or newUser?
+  const queryString = "SELECT * FROM newUser WHERE Age < 999" + keywordString;
 
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
