@@ -41,7 +41,7 @@ const allAge = async (req, res) => {
 // Get the OpenedEmail from one email
 const findEmail = async (req, res) => {
   const id = req.query.emailId;
-  const queryString = "SELECT NumberOpened FROM Email WHERE EmailId = ?";
+  const queryString = "SELECT numberOpened FROM Email WHERE EmailId = ?";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -51,7 +51,7 @@ const findEmail = async (req, res) => {
 // Get the contents from one email
 const findContent = async (req, res) => {
   const id = req.query.emailId;
-  const queryString = "SELECT Contents FROM Email WHERE EmailId = ?";
+  const queryString = "SELECT contents FROM Email WHERE EmailId = ?";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -61,7 +61,7 @@ const findContent = async (req, res) => {
 // Get the number sent from one email
 const findSent = async (req, res) => {
   const id = req.query.emailId;
-  const queryString = "SELECT NumberSent FROM Email WHERE EmailId = ?";
+  const queryString = "SELECT numberSent FROM Email WHERE EmailId = ?";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -75,40 +75,72 @@ const newUser = async (req, res) => {
   res.json({newuser: newUser.toString()});
 };
 
-// Filtering the Gender of user by UserId
-const findUserIdGender = async (req, res) => {
-  var userIdstring = "";
-  if (req.query.userIds) {
-    const array = req.query.userIds.split(",");
-    for (i = 0; i < array.length; i++) {
-      userIdstring += " or userId = '"  +  array[i] + "'";
-    }
-  }
+// Get the gender from one email
+const emailUserGender = async (req, res) => {
+  const id = req.query.emailId;
+  const queryString = "SELECT groupId FROM Email WHERE EmailId = ?";
+  con.query(queryString, [id], function (err, result, fields) {
 
-  const queryString = "SELECT SUM (IF(gender = 'Male',1,0)) as 'male_count', SUM(IF(gender = 'Female',1,0)) as 'female_count' FROM newUser WHERE userId = null" + userIdstring;
-
-  con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
-    if (result) res.json(result);
+    if (result) {
+
+      const groupid = JSON.stringify(result).replace('[{"groupId":','').replace('}]','');
+      const newqueryString = "Select users From MyGroups where groupId = ?";
+
+      con.query(newqueryString, [groupid], function (grouperr, groupresult, fields) {
+        if (grouperr) res.send(err);
+        if (groupresult){
+          var userIdstring = "";
+          const string = JSON.stringify(groupresult).replace('[{"users":"','').replace('"}]','').replace('[','');
+          const array = string.split(",");
+          for (i = 0; i < array.length; i++) {
+            userIdstring += " or userId = '"  +  array[i] + "'";
+          }
+          const finalqueryString = "SELECT SUM (IF(gender = 'Male',1,0)) as 'male_count', SUM(IF(gender = 'Female',1,0)) as 'female_count' FROM newUser WHERE userId = null" + userIdstring;
+
+          con.query(finalqueryString, function (finalerr, finalresult, fields) {
+            if (finalerr) res.send(err);
+            if (finalresult) res.json(finalresult);
+          });
+          
+        }
+      });
+    };
   });
 };
 
-// Filtering the Gender of user by UserId
-const findUserIdAge = async (req, res) => {
-  var userIdstring = "";
-  if (req.query.userIds) {
-    const array = req.query.userIds.split(",");
-    for (i = 0; i < array.length; i++) {
-      userIdstring += " or userId = '"  +  array[i] + "'";
-    }
-  }
 
-  const queryString = "SELECT SUM(IF(age < 20,1,0)) as 'Under 20', SUM(IF(age BETWEEN 20 and 29,1,0)) as '20 - 29', SUM(IF(age BETWEEN 30 and 39,1,0)) as '30 - 39', SUM(IF(age BETWEEN 40 and 49,1,0)) as '40 - 49', SUM(IF(age BETWEEN 50 and 60,1,0)) as '50 - 60' FROM newUser WHERE userId = null" + userIdstring;
+// Get the age from one email
+const emailUserAge = async (req, res) => {
+  const id = req.query.emailId;
+  const queryString = "SELECT groupId FROM Email WHERE EmailId = ?";
+  con.query(queryString, [id], function (err, result, fields) {
 
-  con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
-    if (result) res.json(result);
+    if (result) {
+
+      const groupid = JSON.stringify(result).replace('[{"groupId":','').replace('}]','');
+      const newqueryString = "Select users From MyGroups where groupId = ?";
+
+      con.query(newqueryString, [groupid], function (grouperr, groupresult, fields) {
+        if (grouperr) res.send(err);
+        if (groupresult){
+          var userIdstring = "";
+          const string = JSON.stringify(groupresult).replace('[{"users":"','').replace('"}]','').replace('[','');
+          const array = string.split(",");
+          for (i = 0; i < array.length; i++) {
+            userIdstring += " or userId = '"  +  array[i] + "'";
+          }
+          const finalqueryString = "SELECT SUM(IF(age < 20,1,0)) as 'Under 20', SUM(IF(age BETWEEN 20 and 29,1,0)) as '20 - 29', SUM(IF(age BETWEEN 30 and 39,1,0)) as '30 - 39', SUM(IF(age BETWEEN 40 and 49,1,0)) as '40 - 49', SUM(IF(age BETWEEN 50 and 60,1,0)) as '50 - 60' FROM newUser WHERE userId = null" + userIdstring;
+          con.query(finalqueryString, function (finalerr, finalresult, fields) {
+            if (finalerr) res.send(err);
+            if (finalresult) res.json(finalresult);
+          });
+          
+        }
+      });
+    };
   });
 };
 
-module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent, findSent, newUser, findUserIdGender, findUserIdAge};
+module.exports = { allOpenEmail, countAllUser, allGender , allAge, findEmail, findContent, findSent, newUser, emailUserGender, emailUserAge};

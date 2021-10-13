@@ -43,7 +43,7 @@ const findUserByKeyword = async (req, res) => {
     }
   }
   // is User or newUser?
-  const queryString = "SELECT * FROM User WHERE Age < 999" + keywordString;
+  const queryString = "SELECT * FROM newUser WHERE Age < 999" + keywordString;
 
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
