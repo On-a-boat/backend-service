@@ -12,7 +12,7 @@ const findAll = async (req, res) => {
 
 // Send email and record it into database
 const sendEmail = async (req, res) => {
-  const { users, title, text, coupon } = req.body;
+  const { users, title, text, coupon, groupId } = req.body;
   const mailOptions = {
     from: "onaboat90@gmail.com",
     to: users,
@@ -23,7 +23,7 @@ const sendEmail = async (req, res) => {
   const len = users.length;
 
   const queryString =
-    "INSERT INTO Email (Date,GroupDescription,Contents,NumberSent, Coupons) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO Email (date,title,contents,numberSent,coupons,groupId) VALUES (?, ?, ?, ?, ?, ?)";
   mail.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.log(error);
@@ -31,7 +31,7 @@ const sendEmail = async (req, res) => {
       console.log("Email sent: " + info.response);
       con.query(
         queryString,
-        [date, title, text, len, coupon],
+        [date, title, text, len, coupon, groupId],
         function (err, result, fields) {
           if (err) res.send(err);
           if (result) res.json(result);
@@ -40,5 +40,5 @@ const sendEmail = async (req, res) => {
     }
   });
 };
-//
+
 module.exports = { findAll, sendEmail };
