@@ -1,5 +1,7 @@
 const con = require("../middleware/db");
 
+//UPDATE MyGroups SET emailDestination=GroupId;
+
 // Get all group's information
 const getAllGroup = async (req, res) => {
   const queryString = "SELECT * FROM Newhope.MyGroups";
@@ -39,6 +41,25 @@ const createGroup = async (req, res) => {
       if (result) res.send("sucess!");
     }
   );
+  const queryStringUpdate = "UPDATE MyGroups SET emailDestination=GroupId;";
+  con.query(queryStringUpdate, function (err, data, fields) {
+    if (err) res.send(err);
+    if (data) res.json(data);
+  });
 };
 
-module.exports = { getAllGroup, getGroup, createGroup };
+// Create a group base on name, userid list and keywords.
+const modifyGroup = async (req, res) => {
+  const { groupName, users, userCount, dateCreated } = req.body;
+  const queryString =
+    "INSERT INTO MyGroups (groupName, users, userCount, dateCreated) VALUES (?, ?, ?, ?)";
+  con.query(
+    queryString,
+    [groupName, users, userCount, dateCreated],
+    function (err, result, fields) {
+      if (err) res.send(err);
+      if (result) res.send("sucess!");
+    }
+  );
+};
+module.exports = { getAllGroup, getGroup, createGroup, modifyGroup };

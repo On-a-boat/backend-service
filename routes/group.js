@@ -11,4 +11,6 @@ router.get("/find", group.getGroup);
 // Create a new group
 router.post("/", group.createGroup);
 
+router.put("/", group.modifyGroup);
+
 module.exports = router;
