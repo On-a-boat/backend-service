@@ -30,7 +30,7 @@ const getGroup = async (req, res) => {
 const createGroup = async (req, res) => {
   const { groupName, users, userCount, dateCreated } = req.body;
   const queryString =
-    "INSERT INTO MyGroups (Date,GroupNameUsers) VALUES (?, ?, ?, ?)";
+    "INSERT INTO MyGroups (groupName, users, userCount, dateCreated) VALUES (?, ?, ?, ?)";
   con.query(
     queryString,
     [groupName, users, userCount, dateCreated],
