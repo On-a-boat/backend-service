@@ -39,7 +39,7 @@ const findUserByKeyword = async (req, res) => {
   if (req.query.keywords) {
     const array = req.query.keywords.split(",");
     for (i = 0; i < array.length; i++) {
-      keywordString += " AND Keywords LIKE '" + "%" + array[i] + "%'";
+      keywordString += " AND keyword LIKE '" + "%" + array[i] + "%'";
     }
   }
   // is User or newUser?

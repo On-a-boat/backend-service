@@ -28,6 +28,7 @@ const sendEmail = async (req, res) => {
     if (error) {
       console.log(error);
     } else {
+      // Record the email to database
       console.log("Email sent: " + info.response);
       con.query(
         queryString,
