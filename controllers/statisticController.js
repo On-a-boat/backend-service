@@ -21,7 +21,7 @@ const countAllUser = async (req, res) => {
 // Get Gender
 const allGender = async (req, res) => {
   const queryString = 
-  "SELECT COUNT(DISTINCT CASE WHEN gender = 'Male' THEN UserId END) male_count, COUNT(DISTINCT CASE WHEN gender = 'Female' THEN UserId END) female_count FROM newUser";
+  "SELECT COUNT(DISTINCT CASE WHEN gender = 'M' THEN UserId END) male_count, COUNT(DISTINCT CASE WHEN gender = 'F' THEN UserId END) female_count FROM newUser";
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -96,7 +96,7 @@ const emailUserGender = async (req, res) => {
           for (i = 0; i < array.length; i++) {
             userIdstring += " or userId = '"  +  array[i] + "'";
           }
-          const finalqueryString = "SELECT SUM (IF(gender = 'Male',1,0)) as 'male_count', SUM(IF(gender = 'Female',1,0)) as 'female_count' FROM newUser WHERE userId = null" + userIdstring;
+          const finalqueryString = "SELECT SUM (IF(gender = 'M',1,0)) as 'male_count', SUM(IF(gender = 'F',1,0)) as 'female_count' FROM newUser WHERE userId = null" + userIdstring;
 
           con.query(finalqueryString, function (finalerr, finalresult, fields) {
             if (finalerr) res.send(err);
