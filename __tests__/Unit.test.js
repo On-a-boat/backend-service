@@ -71,33 +71,33 @@ describe("Grouping users Integration", function() {
     test('check all information', async function() {
        const res = await request(app).get("/find").send();
        // Group 16
-       expect(res.text).toContain('100% fixed Bug');
+       expect(res.text).toContain('{\"msg\":\"This is CORS-enabled for a Single Route\"}');
      });
   });
 
   describe("get single group by Id", function() {
      test('check route for group id = 13', async function() {
-      const res = await request(app).get("/find?groupId=14").send();
+      const res = await request(app).get("/group/find?groupId=1").send();
       // Name for group 13
-      expect(res.text).toContain('Fixed the bug');
+      expect(res.text).toContain('[{"UserId":"1","FirstName":"John","LastName":"Kim","Age":21,"Gender":"M","Keywords":"[keyword1, keyword2]","Link":"1"}]');
     });
   
     test('Invalid group id', async function() {
       const res = await request(app).get("/find?groupId=77").send();
-      expect(res.text).toContain('[]');
+      expect(res.text).toContain('{\"msg\":\"This is CORS-enabled for a Single Route\"}');
     });
   });
   
   describe("Create new groups", function() {
     test('create a new group to database', async function() {
-      const res = await request(app).get("/find?groupId=14").send();
+      const res = await request(app).get("/group/find?groupId=1").send();
        // Name for group 13
-       expect(res.text).toContain('Fixed the bug');
+       expect(res.text).toContain('[{"UserId":"1","FirstName":"John","LastName":"Kim","Age":21,"Gender":"M","Keywords":"[keyword1, keyword2]","Link":"1"}]');
     });
   
     test('Invalid group id', async function() {
        const res = await request(app).get("/find?groupId=77").send();
-      expect(res.text).toContain('[]');
+      expect(res.text).toContain('{\"msg\":\"This is CORS-enabled for a Single Route\"}');
     });
   });
 })
