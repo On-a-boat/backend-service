@@ -91,7 +91,7 @@ describe("Grouping users Integration", function() {
   describe("Create new groups", function() {
     test('create a new group to database', async function() {
       const date = new Date();
-      const res = await request(app).post("/group")
+      const res = await request(app).put("/group")
                   .send({groupName:'UnitTesting', users:'1,2,3,4,5,6', userCount: '6', dateCreated: date});
        expect(res.text).toContain('sucess');
     });
