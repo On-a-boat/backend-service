@@ -90,16 +90,12 @@ describe("Grouping users Integration", function() {
   
   describe("Create new groups", function() {
     test('create a new group to database', async function() {
-      const res = await request(app).get("/group/find?groupId=1").send();
-       // Name for group 13
-       expect(res.text).toContain('[{"UserId":"1","FirstName":"John","LastName":"Kim","Age":21,"Gender":"M","Keywords":"[keyword1, keyword2]","Link":"1"}]');
+      const date = new Date();
+      const res = await request(app).post("/group")
+                  .send({groupName:'UnitTesting', users:'1,2,3,4,5,6', userCount: '6', dateCreated: date});
+       expect(res.text).toContain('sucess');
     });
-  
-    test('Invalid group id', async function() {
-       const res = await request(app).get("/find?groupId=77").send();
-      expect(res.text).toContain('{\"msg\":\"This is CORS-enabled for a Single Route\"}');
-    });
-  });
+  });    
 })
 
 describe("Statistics", function() {
