@@ -11,7 +11,7 @@ const allOpenEmail = async (req, res) => {
 
 // Count all User
 const countAllUser = async (req, res) => {
-  const queryString = "select count(userId) From newUser";
+  const queryString = "select count(id) From newUser";
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -21,7 +21,7 @@ const countAllUser = async (req, res) => {
 // Get Gender
 const allGender = async (req, res) => {
   const queryString = 
-  "SELECT COUNT(DISTINCT CASE WHEN gender = 'M' THEN UserId END) male_count, COUNT(DISTINCT CASE WHEN gender = 'F' THEN UserId END) female_count FROM newUser";
+  "SELECT COUNT(DISTINCT CASE WHEN gender = 'M' THEN id END) male_count, COUNT(DISTINCT CASE WHEN gender = 'F' THEN id END) female_count FROM newUser";
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -90,13 +90,13 @@ const emailUserGender = async (req, res) => {
       con.query(newqueryString, [groupid], function (grouperr, groupresult, fields) {
         if (grouperr) res.send(err);
         if (groupresult){
-          var userIdstring = "";
+          var idstring = "";
           const string = JSON.stringify(groupresult).replace('[{"users":"','').replace('"}]','').replace('[','');
           const array = string.split(",");
           for (i = 0; i < array.length; i++) {
-            userIdstring += " or userId = '"  +  array[i] + "'";
+            idstring += " or id = '"  +  array[i] + "'";
           }
-          const finalqueryString = "SELECT SUM (IF(gender = 'M',1,0)) as 'male_count', SUM(IF(gender = 'F',1,0)) as 'female_count' FROM newUser WHERE userId = null" + userIdstring;
+          const finalqueryString = "SELECT SUM (IF(gender = 'M',1,0)) as 'male_count', SUM(IF(gender = 'F',1,0)) as 'female_count' FROM newUser WHERE id = null" + idstring;
 
           con.query(finalqueryString, function (finalerr, finalresult, fields) {
             if (finalerr) res.send(err);
@@ -125,13 +125,13 @@ const emailUserAge = async (req, res) => {
       con.query(newqueryString, [groupid], function (grouperr, groupresult, fields) {
         if (grouperr) res.send(err);
         if (groupresult){
-          var userIdstring = "";
+          var idstring = "";
           const string = JSON.stringify(groupresult).replace('[{"users":"','').replace('"}]','').replace('[','');
           const array = string.split(",");
           for (i = 0; i < array.length; i++) {
-            userIdstring += " or userId = '"  +  array[i] + "'";
+            idstring += " or id = '"  +  array[i] + "'";
           }
-          const finalqueryString = "SELECT SUM(IF(age < 20,1,0)) as 'Under 20', SUM(IF(age BETWEEN 20 and 29,1,0)) as '20 - 29', SUM(IF(age BETWEEN 30 and 39,1,0)) as '30 - 39', SUM(IF(age BETWEEN 40 and 49,1,0)) as '40 - 49', SUM(IF(age BETWEEN 50 and 60,1,0)) as '50 - 60' FROM newUser WHERE userId = null" + userIdstring;
+          const finalqueryString = "SELECT SUM(IF(age < 20,1,0)) as 'Under 20', SUM(IF(age BETWEEN 20 and 29,1,0)) as '20 - 29', SUM(IF(age BETWEEN 30 and 39,1,0)) as '30 - 39', SUM(IF(age BETWEEN 40 and 49,1,0)) as '40 - 49', SUM(IF(age BETWEEN 50 and 60,1,0)) as '50 - 60' FROM newUser WHERE id = null" + idstring;
           con.query(finalqueryString, function (finalerr, finalresult, fields) {
             if (finalerr) res.send(err);
             if (finalresult) res.json(finalresult);

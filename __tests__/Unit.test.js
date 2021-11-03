@@ -27,7 +27,7 @@ describe("Filtering users Integration", function() {
 
   describe("find a single user with id 1", function() {
     test('check the correct result', async function() {
-      const res = await request(app).get("/filter/user?userId=1").send();
+      const res = await request(app).get("/filter/user?id=1").send();
       // First name 
       expect(res.text).toContain('Carter');
       // Email
@@ -35,7 +35,7 @@ describe("Filtering users Integration", function() {
     });
 
     test('check a invalid user', async function() {
-      const res = await request(app).get("/filter/user?userId=1024").send();
+      const res = await request(app).get("/filter/user?id=1024").send();
       // First name 
       expect(res.text).toContain('[]');
     });
@@ -79,7 +79,7 @@ describe("Grouping users Integration", function() {
      test('check route for group id = 13', async function() {
       const res = await request(app).get("/group/find?groupId=1").send();
       // Name for group 13
-      expect(res.text).toContain('[{"UserId":"1","FirstName":"John","LastName":"Kim","Age":21,"Gender":"M","Keywords":"[keyword1, keyword2]","Link":"1"}]');
+      expect(res.text).toContain('[{"id":"1","FirstName":"John","LastName":"Kim","Age":21,"Gender":"M","Keywords":"[keyword1, keyword2]","Link":"1"}]');
     });
   
     test('Invalid group id', async function() {
@@ -120,7 +120,7 @@ describe("Statistics", function() {
     test('check information', async function() {
       const res = await request(app).get("/statistics/allUser").send();
       // Check the information is contain in the res body
-      expect(res.text).toContain('[{"count(userId)":100}]');
+      expect(res.text).toContain('[{"count(id)":100}]');
     });
   });
 

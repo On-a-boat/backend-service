@@ -16,7 +16,7 @@ const getGroup = async (req, res) => {
   var userList = [];
   // Use the result of the first query to search users
   const queryString = "SELECT Users FROM Newhope.MyGroups WHERE GroupId = ?";
-  const queryString2 = "SELECT * FROM User WHERE UserId in ";
+  const queryString2 = "SELECT * FROM User WHERE id in ";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) {
@@ -29,7 +29,7 @@ const getGroup = async (req, res) => {
   });
 };
 
-// Create a group base on name, userid list and keywords.
+// Create a group base on name, id list and keywords.
 const createGroup = async (req, res) => {
   const { groupName, users, userCount, dateCreated } = req.body;
   const queryString =
@@ -49,7 +49,7 @@ const createGroup = async (req, res) => {
   });
 };
 
-// Create a group base on name, userid list and keywords.
+// Create a group base on name, id list and keywords.
 const modifyGroup = async (req, res) => {
   const { groupName, users, userCount, dateCreated } = req.body;
   const queryString =

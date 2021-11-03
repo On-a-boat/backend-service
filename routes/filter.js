@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/show", filter.showAll);
 // Get all user information
 router.get("/showall", filter.findAll);
-// Get a users by userId
+// Get a users by id
 router.get("/user", filter.findUser);
 // Get a list of the users by keywords
 router.get("/search", filter.findUserByKeyword);

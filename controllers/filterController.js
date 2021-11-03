@@ -3,7 +3,7 @@ const con = require("../middleware/db");
 const showAll = async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   const queryString =
-    "SELECT UserId, firstName,lastName,age,gender,freq,email,Link FROM newUser";
+    "SELECT id, firstName,lastName,age,gender,freq,email,Link FROM newUser";
   con.query(queryString, function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
@@ -20,11 +20,11 @@ const findAll = async (req, res) => {
   });
 };
 
-// Get the information of the a user by userid
+// Get the information of the a user by id
 const findUser = async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
-  const id = req.query.userId;
-  const queryString = "SELECT * FROM newUser WHERE UserId = ?";
+  const id = req.query.id;
+  const queryString = "SELECT * FROM newUser WHERE id = ?";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) res.json(result);
