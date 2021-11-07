@@ -15,7 +15,7 @@ const getGroup = async (req, res) => {
   const id = req.query.groupId;
   var userList = [];
   // Use the result of the first query to search users
-  const queryString = "SELECT Users FROM Newhope.MyGroups WHERE GroupId = ?";
+  const queryString = "SELECT Users FROM Newhope.MyGroups WHERE id = ?";
   const queryString2 = "SELECT * FROM User WHERE id in ";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
