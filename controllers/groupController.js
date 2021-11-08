@@ -15,12 +15,13 @@ const getGroup = async (req, res) => {
   const id = req.query.groupId;
   var userList = [];
   // Use the result of the first query to search users
-  const queryString = "SELECT Users FROM Newhope.MyGroups WHERE id = ?";
-  const queryString2 = "SELECT * FROM User WHERE id in ";
+  const queryString = "SELECT users FROM Newhope.MyGroups WHERE id = ?";
+  const queryString2 = "SELECT * FROM newUser WHERE id in ";
   con.query(queryString, [id], function (err, result, fields) {
     if (err) res.send(err);
     if (result) {
-      userList = "(" + result[0].Users + ")";
+      userList = "(" + result[0].users + ")";
+      console.log(userList);
       con.query(queryString2 + userList, function (err, data, fields) {
         if (err) res.send(err);
         if (data) res.json(data);
@@ -42,7 +43,7 @@ const createGroup = async (req, res) => {
       if (result) res.send("sucess!");
     }
   );
-  const queryStringUpdate = "UPDATE MyGroups SET emailDestination=GroupId;";
+  const queryStringUpdate = "UPDATE MyGroups SET emailDestination=id;";
   con.query(queryStringUpdate, function (err, data, fields) {
     if (err) res.send(err);
     if (data) res.json(data);
